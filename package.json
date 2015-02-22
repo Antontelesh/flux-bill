@@ -1,0 +1,27 @@
+{
+  "name": "flux-bill",
+  "version": "0.0.0",
+  "description": "Learning ReactJS+Flux with an example application",
+  "main": "src/main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "style-loader": "^0.8.3",
+    "webpack": "^1.5.3",
+    "jsx-loader": "^0.12.2",
+    "css-loader": "^0.9.1",
+    "sass-loader": "^0.4.0-beta.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Antontelesh/flux-bill.git"
+  },
+  "author": "Anton Telesh <a.telesh@smcs.com.ua>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Antontelesh/flux-bill/issues"
+  },
+  "homepage": "https://github.com/Antontelesh/flux-bill"
+}
