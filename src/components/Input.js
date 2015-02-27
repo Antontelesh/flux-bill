@@ -1,11 +1,13 @@
 import React from 'react';
+import pipe from '../utils/pipe';
 import {isFunction} from 'lodash';
 
 export default React.createClass({
 
   getDefaultProps() {
     return {
-      type: 'text'
+      type: 'text',
+      value: ''
     }
   },
 
@@ -15,16 +17,30 @@ export default React.createClass({
     }
   },
 
+  componentWillMount() {
+    this.parsers = (this.parsers || []).concat(this.props.parsers || []);
+    this.formatters = (this.formatters || []).concat(this.props.formatters || []);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== pipe(this.state.value, this.parsers)) {
+      this.setState({value: pipe(nextProps.value, this.formatters)});
+    }
+  },
+
   onChange(event) {
+    this.setState({value: event.target.value});
+
     if (isFunction(this.props.onChange)) {
-      this.props.onChange(event.target.value);
+      var value = pipe(event.target.value, this.parsers);
+      this.props.onChange(value);
     }
   },
 
   render() {
     return (
       <input  type={this.props.type}
-              value={this.props.value}
+              value={this.state.value}
               onChange={this.onChange} />
     )
   }

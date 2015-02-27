@@ -1,5 +1,6 @@
 import {assign} from 'lodash';
 import GoodsActions from '../actions/Goods';
+import toFloat from '../utils/toFloat';
 
 function defaultGood () {
   return {
@@ -38,12 +39,12 @@ export default class Good {
   }
 
   calculateQuantity() {
-    return (this.total / this.price).toFixed(2);
+    return toFloat((this.total / this.price).toFixed(2));
   }
 
   calculateTotal() {
     var value = (this.quantity || 0) * (this.price || 0);
-    return value.toFixed(2);
+    return toFloat(value.toFixed(2));
   }
 
 }
