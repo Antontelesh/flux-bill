@@ -4,6 +4,7 @@ module.exports = {
 
   output: {
     filename: 'main.js',
+    path: 'public',
     publicPath: '/public/'
   },
 
@@ -26,7 +27,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'jsx-loader?harmony'
+        loader: 'babel!jsx-loader'
       }, {
         test: /\.scss/,
         loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
