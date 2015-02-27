@@ -8,7 +8,7 @@ import {assign, find, remove, pluck, reduce} from 'lodash';
 var goods = [];
 
 function sum (a, b) {
-  return Number(a || 0) + Number(b || 0);
+  return (Number(a || 0) + Number(b || 0)).toFixed(2);
 }
 
 export default Reflux.createStore({

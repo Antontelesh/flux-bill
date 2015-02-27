@@ -1,10 +1,6 @@
 import {assign} from 'lodash';
 import GoodsActions from '../actions/Goods';
 
-function eventValue (event) {
-  return event.target.value;
-}
-
 function defaultGood () {
   return {
     id: +new Date(),
@@ -18,25 +14,25 @@ export default class Good {
     assign(this, defaultGood(), params);
   }
 
-  setTitle(event) {
-    this.title = eventValue(event);
+  setTitle(title) {
+    this.title = title
     GoodsActions.itemChanged(this);
   }
 
-  setQuantity(event) {
-    this.quantity = eventValue(event);
+  setQuantity(quantity) {
+    this.quantity = quantity;
     this.total = this.calculateTotal();
     GoodsActions.itemChanged(this);
   }
 
-  setPrice(event) {
-    this.price = eventValue(event);
+  setPrice(price) {
+    this.price = price;
     this.total = this.calculateTotal();
     GoodsActions.itemChanged(this);
   }
 
-  setTotal(event) {
-    this.total = eventValue(event);
+  setTotal(total) {
+    this.total = total;
     this.quantity = this.calculateQuantity();
     GoodsActions.itemChanged(this);
   }

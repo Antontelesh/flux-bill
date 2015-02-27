@@ -1,6 +1,7 @@
 import React from 'react';
 import {assign, map} from 'lodash';
 import capitalize from '../utils/capitalize';
+import Input from './Input';
 
 export default React.createClass({
 
@@ -17,19 +18,19 @@ export default React.createClass({
 
     return (
       <li>
-        <input
+        <Input
           type="text"
           value={this.state.item.title}
           onChange={this.setter('title')} />
-        <input
+        <Input
           type="text"
           value={this.state.item.quantity}
           onChange={this.setter('quantity')} />
-        <input
+        <Input
           type="text"
           value={this.state.item.price}
           onChange={this.setter('price')} />
-        <input
+        <Input
           type="text"
           value={this.state.item.total}
           onChange={this.setter('total')} />
