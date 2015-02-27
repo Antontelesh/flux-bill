@@ -2,6 +2,6 @@ import toFloatStr from '../utils/toFloatStr';
 import toFloat from '../utils/toFloat';
 
 export default {
-  parsers: [toFloatStr],
-  formatters: [toFloat]
+  parsers: [toFloat],
+  formatters: [toFloatStr]
 }

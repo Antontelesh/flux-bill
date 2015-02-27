@@ -1,6 +1,6 @@
 import {isNumber, isString} from 'lodash';
 
-export default function (value) {
+export default function toFloat (value) {
   var parsed, matches;
 
   if (isNumber(value) && !isNaN(value)) {
