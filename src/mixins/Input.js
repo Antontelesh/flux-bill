@@ -1,6 +1,6 @@
 import React from 'react';
 import pipe from '../utils/pipe';
-import {isFunction} from 'lodash';
+import {isFunction, isUndefined} from 'lodash';
 
 export default {
 
@@ -13,8 +13,38 @@ export default {
 
   getInitialState() {
     return {
-      value: this.props.value
+      value: this.formatValue(this.props.value)
     }
+  },
+
+  parseValue(value) {
+    if (value === '' && !isUndefined(this.props.defaultValue)) {
+      return this.props.defaultValue;
+    }
+
+    return pipe(value, this.parsers);
+  },
+
+  formatValue(value) {
+    if (this.props.defaultValue === value) {
+      return '';
+    }
+
+    return pipe(value, this.formatters);
+  },
+
+  runInterceptors(interceptors = [], newValue, oldValue) {
+
+    var len = interceptors.length,
+        interceptor;
+
+    while (len) {
+      len--;
+      interceptor = interceptors[0];
+      newValue = interceptor(newValue, oldValue);
+    }
+
+    return newValue;
   },
 
   componentWillMount() {
@@ -23,17 +53,17 @@ export default {
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== pipe(this.state.value, this.parsers)) {
-      this.setState({value: pipe(nextProps.value, this.formatters)});
+    if (nextProps.value !== this.parseValue(this.state.value)) {
+      this.setState({value: this.formatValue(nextProps.value)});
     }
   },
 
   onChange(event) {
-    this.setState({value: event.target.value});
+    var value = this.runInterceptors(this.changeInterceptors, event.target.value, this.state.value);
+    this.setState({value: value});
 
     if (isFunction(this.props.onChange)) {
-      var value = pipe(event.target.value, this.parsers);
-      this.props.onChange(value);
+      this.props.onChange(this.parseValue(value));
     }
   },
 

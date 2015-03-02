@@ -1,6 +1,6 @@
 "use strict";
 
-import {find, findIndex, remove as _remove} from 'lodash';
+import {find, findIndex, remove as _remove, pick} from 'lodash';
 import assoc from './assoc';
 import propEq from './propEq';
 
@@ -32,8 +32,13 @@ function post (collection, data) {
 }
 
 function put (collection, item) {
-  remove(collection, item);
-  post(collection, item);
+  var data = read(collection),
+      index = findIndex(data, pick(item, [key_field]));
+
+  if (index > -1) {
+    data.splice(index, 1, item);
+    write(collection, data);
+  }
 }
 
 function remove (collection, item) {

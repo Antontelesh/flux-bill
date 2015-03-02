@@ -19,6 +19,11 @@ export default Reflux.createStore({
     DocumentActions.goodsChanged(goods.concat(new Good()));
   },
 
+  onRemoveItem(item) {
+    remove(goods, {id: item.id});
+    DocumentActions.goodsChanged(goods);
+  },
+
   onItemChanged(item) {
     remove(goods, {id: item.id});
     DocumentActions.goodsChanged(goods.concat(item));
@@ -29,7 +34,8 @@ export default Reflux.createStore({
   },
 
   update() {
-    goods = DocumentStore.getDocument().goods;
+    var doc = DocumentStore.getDocument();
+    goods = doc ? doc.goods : goods;
     this.trigger(goods);
   },
 
@@ -38,7 +44,8 @@ export default Reflux.createStore({
   },
 
   getTotal() {
-    return reduce(pluck(goods, 'total'), sum)
+    var doc = DocumentStore.getDocument();
+    return doc ? doc.amount : null;
   }
 
 });

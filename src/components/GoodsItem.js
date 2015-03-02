@@ -1,5 +1,6 @@
 import React from 'react';
 import {assign, map} from 'lodash';
+import GoodsActions from '../actions/Goods';
 import Input from './Input';
 import NumericFloatInput from './NumericFloatInput';
 import capitalize from '../utils/capitalize';
@@ -17,6 +18,11 @@ export default React.createClass({
     return this.state.item[method].bind(this.state.item);
   },
 
+  remove(event) {
+    event.preventDefault();
+    GoodsActions.removeItem(this.state.item);
+  },
+
   render() {
 
     return (
@@ -28,15 +34,19 @@ export default React.createClass({
         <NumericFloatInput
           type="text"
           value={this.state.item.quantity}
+          defaultValue={1}
           onChange={this.setter('quantity')} />
         <NumericFloatInput
           type="text"
+          defaultValue={0}
           value={this.state.item.price}
           onChange={this.setter('price')} />
         <NumericFloatInput
           type="text"
+          defaultValue={0}
           value={this.state.item.total}
           onChange={this.setter('total')} />
+        <button onClick={this.remove}>×</button>
       </li>
     )
   }

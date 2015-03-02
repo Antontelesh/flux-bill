@@ -5,5 +5,8 @@ export default Reflux.createActions([
   'dateCreatedChanged',
   'goodsChanged',
   'receivedDocument',
-  'fetchDocument'
+  'fetchDocument',
+  'saveDocument',
+  'savedDocument',
+  'exitForm'
 ])

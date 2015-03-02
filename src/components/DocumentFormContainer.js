@@ -1,22 +1,21 @@
 import React from 'react';
-import {State} from 'react-router';
+import {State, Navigation} from 'react-router';
 import Reflux from 'reflux';
 import DocumentStore from '../stores/DocumentStore';
+import DocumentActions from '../actions/Document';
 import DocumentForm from './DocumentForm';
 import Loader from './Loader';
 
 export default React.createClass({
 
-  mixins: [State, Reflux.ListenerMixin],
+  mixins: [State, Navigation, Reflux.ListenerMixin],
 
   getStateFromStores() {
-    var document_id = this.getParams().id,
-        doc = DocumentStore.getDocument();
     return {
-      document_id: document_id,
-      document: document_id
-                ? doc
-                : (doc || DocumentStore.createDocument())
+      saving: DocumentStore.isSaving(),
+      success: DocumentStore.isSuccess(),
+      document_id: this.getParams().id,
+      document: DocumentStore.getDocument()
     }
   },
 
@@ -25,9 +24,7 @@ export default React.createClass({
   },
 
   fetchDocument() {
-    if (this.state.document_id) {
-      DocumentActions.fetchDocument(this.state.document_id)
-    }
+    DocumentActions.fetchDocument(this.state.document_id);
   },
 
   componentDidMount() {
@@ -35,16 +32,23 @@ export default React.createClass({
     this.fetchDocument();
   },
 
-  handleFormSubmit() {
-    console.log('document form submit', arguments);
+  handleFormSubmit(doc) {
+    DocumentActions.saveDocument(doc);
   },
 
   render() {
+    if (this.state.success) {
+      this.transitionTo('list');
+      DocumentActions.exitForm();
+      return null;
+    }
+
     if (this.state.document) {
       return (
         <DocumentForm
           document={this.state.document}
-          onSubmit={this.handleFormSubmit} />
+          onSubmit={this.handleFormSubmit}
+          saving={this.state.saving} />
       );
     }
     return <Loader/>

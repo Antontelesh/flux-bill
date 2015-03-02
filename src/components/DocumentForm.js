@@ -43,7 +43,7 @@ export default React.createClass({
 
         <GoodsForm goods={this.state.document.goods} />
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={this.props.saving ? 'disabled' : null}>{this.props.saving ? 'Saving...' : 'Submit'}</button>
       </form>
     )
   }

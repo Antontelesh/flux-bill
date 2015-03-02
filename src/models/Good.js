@@ -5,7 +5,10 @@ import toFloat from '../utils/toFloat';
 function defaultGood () {
   return {
     id: +new Date(),
-    title: ''
+    title: '',
+    quantity: 1,
+    price: 0,
+    total: 0
   }
 }
 
