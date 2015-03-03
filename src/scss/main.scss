@@ -1,6 +1,12 @@
 @import "./bourbon_bower";
 @import "./neat_bower";
 
+html, body {
+  font-family: 'Proxima Nova', 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
 .container {
   @include outer-container();
 }
@@ -17,4 +23,12 @@
 
 .content {
   @include span-columns(8);
+}
+
+.input-block-level {
+  width: 100%;
+}
+
+.control-group {
+  margin-bottom: 10px;
 }

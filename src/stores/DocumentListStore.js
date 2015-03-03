@@ -15,8 +15,13 @@ function instantiateDocuments (docs) {
   });
 }
 
+function strip (str) {
+  return String(str)
+    .replace(/\s/g, '');
+}
+
 function titleMatch (doc) {
-  return isSubstring(titleFilter, doc.getTitle());
+  return isSubstring(strip(titleFilter), strip(doc.getTitle()));
 }
 
 export default Reflux.createStore({

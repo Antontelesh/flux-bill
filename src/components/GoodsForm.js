@@ -1,6 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 import {map, sortBy} from 'lodash';
+import moneyFormat from '../utils/moneyFormat';
 import GoodsItem from './GoodsItem';
 import GoodsStore from '../stores/GoodsStore';
 import GoodsActions from '../actions/Goods';
@@ -38,7 +39,7 @@ export default React.createClass({
     return (
       <div className="goods-container">
         <ul className="goods">{goods}</ul>
-        <div>Total: {this.state.total}</div>
+        <div>Total: {moneyFormat(this.state.total)}</div>
         <button onClick={this.addItem}>Add Item</button>
       </div>
     )

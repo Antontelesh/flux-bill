@@ -2,7 +2,7 @@ require('../scss/DocumentList.scss');
 
 import React from 'react';
 import Reflux from 'reflux';
-import {Link} from 'react-router';
+import {Link, Navigation} from 'react-router';
 import {map} from 'lodash';
 
 import DocumentListStore from '../stores/DocumentListStore';
@@ -23,7 +23,7 @@ function getState () {
 
 export default React.createClass({
 
-  mixins: [Reflux.ListenerMixin],
+  mixins: [Navigation, Reflux.ListenerMixin],
 
   getInitialState() {
     return getState();
@@ -50,7 +50,26 @@ export default React.createClass({
     DocumentListActions.setTitleFilter(title);
   },
 
+  renderSidebar() {
+    return (
+      <Sidebar>
+        <div className="control-group">
+          <Link to="form_create">Create Document</Link>
+        </div>
+        <div className="control-group">
+          <Input
+            className="input-block-level"
+            placeholder="Search bills by title"
+            value={this.state.titleFilter}
+            onChange={this.setTitleFilter} />
+        </div>
+      </Sidebar>
+    );
+  },
+
   render() {
+    this.replaceWith('list', {}, this.state.titleFilter ? {title: this.state.titleFilter} : {});
+
     var documents = map(this.state.documents, this.renderDocument),
         list = documents.length
                 ? <ul className="document-list">{documents}</ul>
@@ -59,11 +78,7 @@ export default React.createClass({
     if (!this.state.loading) {
       return (
         <div className="row">
-          <Sidebar>
-            <Input
-              value={this.state.titleFilter}
-              onChange={this.setTitleFilter} />
-          </Sidebar>
+          {this.renderSidebar()}
           <Content>{list}</Content>
         </div>
       );

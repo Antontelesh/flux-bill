@@ -30,21 +30,25 @@ export default React.createClass({
         <Input
           type="text"
           value={this.state.item.title}
+          placeholder="Title"
           onChange={this.setter('title')} />
         <NumericFloatInput
           type="text"
           value={this.state.item.quantity}
+          placeholder="1"
           defaultValue={1}
           onChange={this.setter('quantity')} />
         <NumericFloatInput
           type="text"
           defaultValue={0}
+          placeholder="0,00"
           value={this.state.item.price}
           onChange={this.setter('price')} />
         <NumericFloatInput
           type="text"
           defaultValue={0}
           value={this.state.item.total}
+          placeholder="0,00"
           onChange={this.setter('total')} />
         <button onClick={this.remove}>×</button>
       </li>

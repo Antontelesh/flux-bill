@@ -52,6 +52,12 @@ export default {
     this.formatters = (this.formatters || []).concat(this.props.formatters || []);
   },
 
+  componentDidMount() {
+    if (this.props.autoselect) {
+      this.getDOMNode().focus();
+    }
+  },
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.parseValue(this.state.value)) {
       this.setState({value: this.formatValue(nextProps.value)});
@@ -72,6 +78,9 @@ export default {
       <input  type={this.props.type}
               value={this.state.value}
               onChange={this.onChange}
+              autoselect={this.props.autoselect}
+              className={this.props.className}
+              placeholder={this.props.placeholder}
               onBlur={this.onBlur || null} />
     )
   }

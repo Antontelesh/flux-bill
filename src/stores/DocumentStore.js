@@ -56,6 +56,11 @@ export default Reflux.createStore({
     }
   },
 
+  onDocumentChanged(changed) {
+    doc = changed;
+    this.trigger(changed);
+  },
+
   getDocument() {
     return doc;
   },
