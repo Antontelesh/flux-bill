@@ -1,4 +1,4 @@
-import {assign, map, pluck, reduce} from 'lodash';
+import {assign, map, pluck, reduce, compact} from 'lodash';
 import Good from './Good';
 
 function sum (a = 0, b = 0) {
@@ -24,6 +24,15 @@ export default class Document {
   constructor(params = {}) {
     assign(this, defaultDocument(), params);
     this.setGoods(params.goods);
+  }
+
+  getTitle() {
+    return compact([
+      'Bill',
+      this.number ? `# ${this.number}` : null,
+      this.date_created ? `from ${this.date_created}` : null,
+      `on ${this.amount}`
+    ]).join(' ');
   }
 
   setGoods(goods) {

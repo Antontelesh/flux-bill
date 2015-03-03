@@ -1,0 +1,20 @@
+@import "./bourbon_bower";
+@import "./neat_bower";
+
+.container {
+  @include outer-container();
+}
+
+.row {
+  @include row();
+}
+
+.sidebar {
+  @include direction-context(right-to-left) {
+    @include span-columns(4);
+  }
+}
+
+.content {
+  @include span-columns(8);
+}

@@ -26,6 +26,10 @@ export default {
     return resolve(Storage.get('documents', {id: id}))
   },
 
+  getAll() {
+    return resolve(Storage.read('documents'), 500);
+  },
+
   save(doc) {
     Storage.store('documents', doc);
     return resolve(doc);

@@ -1,5 +1,7 @@
 'use strict';
 
+require('./scss/main.scss');
+
 import React from 'react';
 import Router, {Route, NotFoundRoute, DefaultRoute, Redirect} from 'react-router';
 
