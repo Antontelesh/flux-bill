@@ -3,13 +3,10 @@
 import {find, findIndex, remove as _remove, pick} from 'lodash';
 import assoc from './assoc';
 import propEq from './propEq';
+import guid from './guid';
 
 var storage = 'localStorage';
 var key_field = 'id';
-
-function nextId () {
-  return new Date().valueOf().toString();
-}
 
 function read (collection) {
   var raw = window[storage][collection];
@@ -27,7 +24,7 @@ function get (collection, query) {
 }
 
 function post (collection, data) {
-  var item = assoc(key_field, nextId(), data);
+  var item = assoc(key_field, guid(), data);
   return write(collection, read(collection).concat(item));
 }
 

@@ -27,7 +27,7 @@ export default {
   },
 
   getAll() {
-    return resolve(Storage.read('documents'), 500);
+    return resolve(Storage.read('documents'));
   },
 
   save(doc) {

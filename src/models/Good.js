@@ -1,10 +1,11 @@
-import {assign} from 'lodash';
+import {assign, isEmpty} from 'lodash';
 import GoodsActions from '../actions/Goods';
 import toFloat from '../utils/toFloat';
+import guid from '../utils/guid';
 
 function defaultGood () {
   return {
-    id: +new Date(),
+    id: guid(),
     title: '',
     quantity: 1,
     price: 0,
@@ -48,6 +49,10 @@ export default class Good {
   calculateTotal() {
     var value = (this.quantity || 0) * (this.price || 0);
     return toFloat(value.toFixed(2));
+  }
+
+  isEmpty() {
+    return isEmpty(this.title);
   }
 
 }

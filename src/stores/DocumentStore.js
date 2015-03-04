@@ -16,22 +16,20 @@ export default Reflux.createStore({
     if (document_id) {
       return DocumentAPI
         .getDocument(document_id)
-        .then(function onSuccess (doc) {
-          DocumentActions.receivedDocument(new Document(doc));
-        });
+        .then(DocumentActions.receivedDocument);
     }
-    return DocumentActions.receivedDocument(new Document());
+    return DocumentActions.receivedDocument();
   },
 
   onReceivedDocument(received) {
-    doc = received;
+    doc = new Document(received);
     this.trigger(doc);
   },
 
   onSaveDocument(doc) {
     saving = true;
     DocumentAPI
-      .save(doc)
+      .save(doc.format())
       .then(DocumentActions.savedDocument)
     this.trigger();
   },

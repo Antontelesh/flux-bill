@@ -1,4 +1,4 @@
-import {assign, map, pluck, reduce, compact} from 'lodash';
+import {assign, map, pluck, reduce, compact, keys, reject} from 'lodash';
 import moneyFormat from '../utils/moneyFormat';
 import Good from './Good';
 import DocumentActions from '../actions/Document';
@@ -21,11 +21,19 @@ function createGoods (goods) {
   });
 }
 
+function goodIsEmpty (item) {
+  return item.isEmpty();
+}
+
 export default class Document {
 
   constructor(params = {}) {
     assign(this, defaultDocument(), params);
     this.setGoods(params.goods);
+
+    if (!this.goods.length) {
+      this.setGoods(new Array(3));
+    }
   }
 
   getTitle() {
@@ -55,6 +63,17 @@ export default class Document {
 
   calculateAmount() {
     return reduce(pluck(this.goods, 'total'), sum) || 0;
+  }
+
+  format() {
+    return reduce(keys(this), function (result, key) {
+      if (key === 'goods') {
+        result[key] = reject(this[key], goodIsEmpty);
+      } else {
+        result[key] = this[key];
+      }
+      return result;
+    }, {}, this);
   }
 
 }

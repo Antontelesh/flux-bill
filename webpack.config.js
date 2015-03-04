@@ -1,5 +1,7 @@
 'use strict';
 
+var webpack = require('webpack');
+
 module.exports = {
 
   output: {
@@ -37,5 +39,11 @@ module.exports = {
       }
     ]
   },
+
+  plugins: [
+    // new webpack.optimize.UglifyJsPlugin({
+    //   mangle: true
+    // })
+  ]
 
 };
